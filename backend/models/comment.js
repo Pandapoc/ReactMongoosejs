@@ -3,7 +3,7 @@ module.exports = (Schema, model) => {
     body: String,
     post: {
       type: Schema.Types.ObjectId,
-      ref: 'Post'
+      ref: 'Article'
     }
   })
 

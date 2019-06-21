@@ -1,9 +1,9 @@
-const { Comment, Post } = require('../models')
+const { Comment, Article } = require('../models')
 
 module.exports = app => {
   app.get('/comments', (req, res) => {
     Comment.find({})
-      .populate('post')
+      .populate('article')
       .then(comments => res.json(comments))
       .catch(e => console.log(e))
   })
@@ -12,7 +12,7 @@ module.exports = app => {
   app.post('/comments', (req, res) => {
     Comment.create(req.body)
       .then(({ _id }) => {
-        Post.findByIdAndUpdate(req.body.post, { $push: { comments: _id } })
+        Article.findByIdAndUpdate(req.body.article, { $push: { comments: _id } })
           .then(_ => res.sendStatus(200))
           .catch(e => console.log(e))
       })
